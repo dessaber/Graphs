@@ -17,17 +17,20 @@ public class SecondTask {
             adjacencyMatrix = new boolean[size][size];
             distanceTo = new Integer[size];
             connected = new boolean[size];
-            for(int i : distanceTo){
-                i= Integer.MAX_VALUE;
+            for(int i = 0; i < size ; i++){
+                distanceTo[i] = Integer.MAX_VALUE;
             }
         }
 
         public void addEdge(int first, int second) {
-            adjacencyMatrix[first-1][second-1] = true;
+            adjacencyMatrix[first][second] = true;
+            adjacencyMatrix[second][first] = true;
         }
 
         public int[] shortestReach(int startId) {
-            q.add(startId-1);
+            q.add(startId);
+            connected[startId] = true;
+            distanceTo[startId] = 0;
 
 
             while(!q.isEmpty()){
@@ -43,17 +46,18 @@ public class SecondTask {
                 }
             }
 
-            int result[] = new int[distanceTo.length-1];
+            int result[] = new int[distanceTo.length];
 
-            for(int i = 0 ; i < result.length ; i++){
-                if(i != startId){
-                    if(distanceTo[i] == Integer.MAX_VALUE) {
-                        result[i] = -1;
-                    } else {
-                        result[i] = distanceTo[i];
-                    }
+            for(int i = 0; i < result.length ; i++) {
+
+                if (distanceTo[i] == Integer.MAX_VALUE) {
+                    result[i] = -1;
+                } else {
+                    result[i] = distanceTo[i];
                 }
+
             }
+
             return result;
         }
 

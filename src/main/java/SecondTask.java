@@ -9,16 +9,16 @@ public class SecondTask {
     public static class Graph {
 
         boolean adjacencyMatrix[][];
-        Integer distanceTo[];
+        int distanceTo[];
         boolean connected[];
         PriorityQueue<Integer> q = new PriorityQueue<>();
 
         public Graph(int size) {
             adjacencyMatrix = new boolean[size][size];
-            distanceTo = new Integer[size];
+            distanceTo = new int[size];
             connected = new boolean[size];
             for(int i = 0; i < size ; i++){
-                distanceTo[i] = Integer.MAX_VALUE;
+                distanceTo[i] = -1;
             }
         }
 
@@ -39,26 +39,14 @@ public class SecondTask {
                     if(!connected[w]){
                         connected[w] = true;
                         q.add(w);
-                        if(distanceTo[w] > distanceTo[v] + 6) {
+                        if(distanceTo[w] > distanceTo[v] + 6 || distanceTo[w] == -1) {
                             distanceTo[w] = distanceTo[v] + 6;
                         }
                     }
                 }
             }
 
-            int result[] = new int[distanceTo.length];
-
-            for(int i = 0; i < result.length ; i++) {
-
-                if (distanceTo[i] == Integer.MAX_VALUE) {
-                    result[i] = -1;
-                } else {
-                    result[i] = distanceTo[i];
-                }
-
-            }
-
-            return result;
+            return distanceTo;
         }
 
         public List<Integer> adjacents(int v){

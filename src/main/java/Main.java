@@ -5,6 +5,8 @@ public class Main {
     static int grid[][];
     static int n;
     static int m;
+    static int maxCount;
+    static int counter;
 
     public static void main(String[] args) {
 
@@ -24,21 +26,23 @@ public class Main {
             for(int j = 0 ; j < m ; j++){
 
                 if(grid[i][j] == 1 && !visited[i][j]){
+                    counter = 0;
                     dfs(i, j);
+                    if(counter > maxCount) maxCount = counter;
                 }
             }
         }
+        System.out.println(maxCount);
     }
 
     static void dfs(int x, int y){
-        if (x >= 0 && y >= 0 && x < n && y < m) {
+        if (x >= 0 && y >= 0 && x < n && y < m && grid[x][y] == 1 && !visited[x][y]) {
             visited[x][y] = true;
+            counter++;
 
             for (int i = x - 1; i <= x + 1; i++) {
                 for (int j = y - 1; j <= y + 1; j++) {
-                    if (grid[i][j] == 1 && !visited[i][j]) {
-                        dfs(i, j);
-                    }
+                    dfs(i, j);
                 }
             }
         }

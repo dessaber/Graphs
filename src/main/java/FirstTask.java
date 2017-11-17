@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main {
+public class FirstTask {
     static boolean visited[][];
     static int grid[][];
     static int n;
